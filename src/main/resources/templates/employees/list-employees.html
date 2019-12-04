@@ -11,7 +11,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}">
+	
 	<title>Employee Directory</title>
 </head>
 
@@ -23,23 +24,26 @@
 	<hr>
 	
 	<div>
-		User: <span sec:authentication="name"></span>
+		User: <p class="label label-info"> <span sec:authentication="name"></span></p>
 		<br>
 		Role(s): <span sec:authentication="principal.authorities"></span>
 		<br><br>
+		
+		<a th:href="@{/dayoff/notification}" class="btn btn-warning float-right">
+		  	Notifications <span class="badge badge-light" th:text="${notification}"></span>
+		  </a>
+		
+		<!-- Add a logout button -->
+		<p sec:authorize="isAuthenticated()" class="float-right"><a th:href="@{/logout}" class="btn btn-primary btn-sm mr-5 mb-3">Logout</a></p>
 	</div>
 	
-    <form th:action="@{/employees/search}" class="form-inline">
+    <form th:action="@{/employees/search}" class="form-inline">     
 		<a th:href="@{/register/showRegistrationForm}"
-			class="btn btn-primary btn-sm mr-5 mb-3">
+			class="btn btn-primary btn-sm mr-5 mb-3" style="height: fit-content;">
 			Add Employee
-		</a>
-			<!-- Add a logout button -->
-	<p sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-primary btn-sm mr-5 mb-3">Logout</a></p>
-	
+		</a>			
 		<input class="form-control  ml-5 mr-sm-2 mb-3" type="search" name="employeeName" placeholder="Search by name" />
-
-		<button class="btn btn-success mb-3" type="submit">Search</button>
+		<button class="btn btn-success mb-3" type="submit">Search</button>		
     </form>	
 	
 	
@@ -49,8 +53,7 @@
 				<th>First Name</th>
 				<th>Last Name</th>
 				<th>Email</th>
-				<th>Action</th>
-				<th>Notification</th>
+				<th>Action</th>				
 			</tr>
 		</thead>
 		
@@ -83,27 +86,25 @@
 
 					</div>		
 					 &nbsp; &nbsp;
-					<div sec:authorize="hasRole('ROLE_ADMIN')">  
-					
-						<!-- Add "view employee leaves" button/link -->					
+					<!-- <div sec:authorize="hasRole('ROLE_ADMIN')">  					
+						Add "view employee leaves" button/link					
 						<a th:href="@{/dayoff/list-leave(username=${tempEmployee.userName})}"
 						   class="btn btn-warning btn-sm">
 							View
 						</a>
-
-					</div>				
-				</td>
-				 <td th:text="${notification}" /></td>
-				
+					</div> -->	
+								
+				</td>								
 			</tr>
 		</tbody>		
 	</table>
 	
 		
 </div>
+
 	<script th:src="@{/webjars/jquery/1.9.1/jquery.min.js/}"></script>
-<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
-<script	th:src="@{/webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js}"></script>
+	<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+	
 </body>
 </html>
 

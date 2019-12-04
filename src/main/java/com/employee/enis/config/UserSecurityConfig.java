@@ -26,34 +26,17 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     
    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+       auth.authenticationProvider(authenticationProvider());
+        
     }
-	/*
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-
-		http.authorizeRequests()
-			.antMatchers("/").hasRole("EMPLOYEE")
-			.antMatchers("/leaders/**").hasRole("MANAGER")
-			.antMatchers("/systems/**").hasRole("ADMIN")
-			.and()
-			.formLogin()
-				.loginPage("/showMyLoginPage")
-				.loginProcessingUrl("/authenticateTheUser")
-				.successHandler(customAuthenticationSuccessHandler)
-				.permitAll()
-			.and()
-			.logout().permitAll()
-			.and()
-			.exceptionHandling().accessDeniedPage("/access-denied");
-		
-	}
-	*/
+   
+   
    
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
+			.antMatchers("/").permitAll()
 			.antMatchers("/employees/showForm*").hasAnyRole("ADMIN")
 			.antMatchers("/employees/save*").hasAnyRole("ADMIN")
 			.antMatchers("/employees/delete").hasRole("ADMIN")
@@ -63,7 +46,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/leave/list-leaves**").hasAnyRole("EMPLOYEE","ADMIN")
 			.antMatchers("/leave/list-leaves").hasAnyRole("EMPLOYEE","ADMIN")
 			.antMatchers("/leave**").hasAnyRole("EMPLOYEE","ADMIN")
-			//.antMatchers("/resources/**").permitAll()
+			.antMatchers("/resources/**").permitAll()
 			.and()
 			.formLogin()
 				.loginPage("/showMyLoginPage")
@@ -92,6 +75,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	//authenticationProvider bean definition
+	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -99,6 +83,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
 		return auth;
 	}
+	
 	  
 }
 

@@ -15,7 +15,7 @@ public interface ILeavesService {
 
 	void updateLeaves(Leaves leave);
 
-	void addLeaves(String name, String desc, Date targetDate,Date endDate, boolean isDone);
+	void addLeaves(String name, String desc, Date targetDate,Date endDate, String status, boolean isDone);
 
 	void deleteLeaves(long id);
 	

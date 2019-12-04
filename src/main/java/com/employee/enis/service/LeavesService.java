@@ -32,8 +32,8 @@ public class LeavesService implements ILeavesService {
 	}
 
 	@Override
-	public void addLeaves(String name, String desc, Date targetDate, Date endDate, boolean isDone) {
-		leavesRepository.save(new Leaves(name, desc, targetDate, endDate, isDone));
+	public void addLeaves(String name, String desc, Date targetDate, Date endDate, String status, boolean isDone) {
+		leavesRepository.save(new Leaves(name, desc, targetDate, endDate, status, isDone));
 	}
 
 	@Override

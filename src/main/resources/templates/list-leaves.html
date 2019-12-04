@@ -27,19 +27,20 @@
 		<hr>
 
 		<div class="container">
-			User: <b><span sec:authentication="name"></span></b> <br> Role:
+			User: <b class="label label-info"><span sec:authentication="name"></span></b> <br> Role:
 			<span sec:authentication="principal.authorities"></span> <br> <br>
-			Dear Employee you have per law only 22 days of Leave in total. Spend
-			them wisely.
+			<p class="alert alert-success">Dear Employee you have only 22 days per Year of Leave in total. Spend
+			them wisely.</p>
 		</div>
 		<br>
+		<!-- Add a logout button -->
+			
 		<div class="container">
-
+			<p sec:authorize="isAuthenticated()" class="float-right"><a th:href="@{/logout}" class="btn btn-primary btn-sm mr-5 mb-3">Logout</a></p>
 			<a th:href="@{/leave/add-leave}"
 				class="btn btn-primary btn-sm mr-5 mb-3"> Add Leave </a> <br>
 			<br>
-			<!-- Add a logout button -->
-			<p sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-primary btn-sm mr-5 mb-3">Logout</a></p>
+			
 
 			<table class="table table-bordered table-striped">
 				<thead class="thead-dark">
@@ -48,7 +49,9 @@
 						<th>Start Date</th>
 						<th>End Date</th>
 						<th>Leaving Days</th>
-						<th>Remainig Days</th>
+						<th>Amount of Leave Days</th>
+						<th>Action</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 
@@ -74,6 +77,7 @@
 									Delete </a>
 							</div>
 						</td>
+						<td th:text="${leavesEmployee.aprovedrejected}" />
 					</tr>
 				</tbody>
 			</table>

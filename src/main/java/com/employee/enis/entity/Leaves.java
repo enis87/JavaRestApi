@@ -33,18 +33,20 @@ public class Leaves {
 	private int totdays;
 	private int remainigdays;
 	
-	private boolean notification;
+	@Column(name="status")
+	public String aprovedrejected;
 		
 	public Leaves() {
 		super();
 	}
 
-	public Leaves(String user, String desc, Date targetDate,  Date endDate, boolean isDone) {
+	public Leaves(String user, String desc, Date targetDate,  Date endDate, String status, boolean isDone) {
 		super();
 		this.userName = user;
 		this.description = desc;
 		this.targetDate = targetDate;
 		this.endDate = endDate;
+		this.aprovedrejected = status;
 	}
 
 	public Leaves(String desc, Date targetDate,  Date endDate, boolean isDone) {
@@ -110,13 +112,15 @@ public class Leaves {
 		this.remainigdays = remainigdays;
 	}
 
-	public boolean isNotification() {
-		return notification;
+	public String getAprovedrejected() {
+		return aprovedrejected;
 	}
 
-	public void setNotification(boolean notification) {
-		this.notification = notification;
+	public void setAprovedrejected(String aprovedrejected) {
+		this.aprovedrejected = aprovedrejected;
 	}
+
+	
 	
 	
 }

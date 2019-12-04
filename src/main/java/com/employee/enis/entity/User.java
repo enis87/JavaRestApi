@@ -26,6 +26,8 @@ public class User {
 
 	@Column(name = "email")
 	private String email;
+	
+	private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", 
@@ -39,12 +41,13 @@ public class User {
 	public User() {
 	}
 
-	public User(String userName, String password, String firstName, String lastName, String email) {
+	public User(String userName, String password, String firstName, String lastName, String email, boolean isenabled) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.enabled = isenabled;
 	}
 
 	public User(String userName, String password, String firstName, String lastName, String email,
@@ -104,6 +107,14 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+		
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public Collection<Role> getRoles() {
 		return roles;
@@ -111,14 +122,6 @@ public class User {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
-	}
-	
-	public int getNotification() {
-		Leaves obj = new Leaves();
-		if(obj.isNotification()==true) {
-			return 1;
-		}else
-			return 0;
 	}
 
 	@Override

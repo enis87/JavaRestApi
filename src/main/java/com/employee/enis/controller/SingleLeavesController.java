@@ -73,9 +73,59 @@ public class SingleLeavesController {
 		} catch (Exception e) {
 			theLeaves = null;
 		}
+		
+		for(int i=0;i<theLeaves.size();i++) {
+			
+			System.out.println("Status: " + theLeaves.get(i).getAprovedrejected());
+		}
 
 		return "single-leaves";
 	}
+	
+	@GetMapping("/notification")
+	public String getNotification(ModelMap model) {
+
+		Session currentSession = entityManager.unwrap(Session.class).getSessionFactory().openSession();
+		
+		Query<Leaves> query = currentSession.createQuery("from Leaves where description <> null", Leaves.class);
+		//query.setParameter("uName", username);
+		List<Leaves> theLeaves = null;
+		try {
+			theLeaves = query.getResultList();
+			model.put("leaves", theLeaves);
+		} catch (Exception e) {
+			theLeaves = null;
+		}		
+				
+		return "single-leaves";
+	}
+	
+	
+	@GetMapping("/action")
+	
+	public String showAprovedRejected(@RequestParam String value, @RequestParam Long id, @Valid Leaves leave, ModelMap model) {
+		/*
+		Session currentSession = entityManager.unwrap(Session.class).getSessionFactory().openSession();
+		
+			
+		String queryString="update Leaves set status =:statusName where id =:id ";
+		Query<Leaves> query = currentSession.createQuery(queryString,Leaves.class);
+		query.setParameter("statusName", value);
+		query.setParameter("id", id);
+		int result = query.executeUpdate();
+		*/
+		
+
+		if(value.equalsIgnoreCase("Aproved")) {
+			leave.setAprovedrejected("Aproved");
+		}else if(value.equalsIgnoreCase("Rejected")){
+			leave.setAprovedrejected("Rejected");
+		}		
+			
+		return "redirect:/dayoff/notification";
+	}
+	
+	/******************************************************************************************/
 	
 	@GetMapping("/delete-leave")
 	public String deleteLeaves(@RequestParam long id,ModelMap model) {

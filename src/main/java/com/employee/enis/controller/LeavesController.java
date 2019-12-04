@@ -31,7 +31,6 @@ import com.employee.enis.service.ILeavesService;
 public class LeavesController {
 	
 	private int days;
-	public static List<Leaves> lista;
 		
 	@Autowired
 	private ILeavesService leavesService;
@@ -107,7 +106,7 @@ public class LeavesController {
 		}		
 		
 		Session currentSession = entityManager.unwrap(Session.class).getSessionFactory().openSession();
-		
+				
 		// retrieve from database using username
 		Query<Leaves> query = currentSession.createNativeQuery("SELECT * FROM employee_holidays.leaves where username=:name", Leaves.class);
 		query.setParameter("name", getLoggedInUserName(model));
@@ -116,8 +115,7 @@ public class LeavesController {
 		
 		leave.setUserName(getLoggedInUserName(model));
 		leave.setTotdays(daysSumBetween(leave.getTargetDate(), leave.getEndDate()));
-		leave.setNotification(true);
-		
+			
 		try {
 			theLeaves = query.list();
 			model.put("leaves", theLeaves);
@@ -134,11 +132,11 @@ public class LeavesController {
 			if(theLeaves == null ) {
 				days = 22 - leave.getTotdays();
 				leave.setRemainigdays(days);
+				
 			}			
 			e.getStackTrace();
 		}
 		
-		lista.add(leave);
 		leavesService.saveLeaves(leave);
 		return "redirect:/leave/list-leaves";
 	}

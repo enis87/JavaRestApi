@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+ <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}">
+
 <head>
 <title>Employee Management - Home Page</title>
 </head>
@@ -24,10 +25,10 @@
 
 		<div>
 			User: <span sec:authentication="name" ></span><br>
-			Role(s): <span sec:authentication="principal.authorities"></span>
+			<!-- Role(s): <span sec:authentication="principal.authorities"></span> -->
 			<br> &nbsp; &nbsp;
 			<!-- Add a logout button -->
-			<p sec:authorize="isAuthenticated()">
+			<p>
 				<a th:href="@{/logout}" class="btn btn-primary btn-sm mr-5 mb-3" style="margin-top: 10px;">Logout</a>
 			</p><br>
 			<!-- Check for login error -->
@@ -40,13 +41,10 @@
 		</div>
 
 		<div sec:authorize="hasRole('ROLE_EMPLOYEE')" class="form-group">
-
 			<!-- Add a link to point to Employees -->
-
 			<p>
 				<a th:href="@{/leave/list-leaves}" class="btn btn-danger btn-sm col-xs-12 col-sm-4"> &nbsp;&nbsp;
-				<i class="glyphicon glyphicon-pencil"></i> Check Leave</a>&nbsp;
-				
+				<i class="glyphicon glyphicon-pencil"></i> Check Leave</a>&nbsp;				
 			</p>
 		</div>
 
@@ -57,11 +55,12 @@
 			</p>
 		</div>
 		
-		<hr>
+		
 	</div>
 	</div>
 	
-	
+	<script th:src="@{/webjars/jquery/1.9.1/jquery.min.js/}"></script>
+	<script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
 </body>
 
 </html>
